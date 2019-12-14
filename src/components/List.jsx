@@ -10,7 +10,7 @@ class List extends React.Component {
   render(){
     return (
       <div>
-        {this.props.groceries ? this.props.groceries.map(item => item.category) : []}
+        {this.props.groceries.groceries ? this.props.groceries.groceries.map(item => item.category) : []}
       </div>
     )
   }
