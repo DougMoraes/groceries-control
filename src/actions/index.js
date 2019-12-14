@@ -4,7 +4,7 @@ import {
 } from './types';
 
 export const getGroceriesHistory = () => async dispatch => {
-  const response = await groceriesAPI.get('/streams');
+  const response = await groceriesAPI.get('/groceries');
 
   dispatch({ type: GET_GROCERIES_HISTORY, payload: response.data });
 }
