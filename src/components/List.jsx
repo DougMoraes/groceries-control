@@ -10,16 +10,16 @@ class List extends React.Component {
   render(){
     return (
       <div>
-        {this.props.groceries.groceries ? this.props.groceries.groceries.map(item => item.category) : []}
+        {this.props.categories}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   return {
     groceries: state.groceries,
+    categories: [...new Set(state.groceries.map(item => item.category))]
   };
 }
 

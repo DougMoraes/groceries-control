@@ -2,11 +2,11 @@ import {
   GET_GROCERIES_HISTORY
 } from '../actions/types';
 
-export default (state = {}, action) => {
+export default (groceries = [], action) => {
   switch (action.type) {
     case GET_GROCERIES_HISTORY:
-      return { ...state, groceries: action.payload }; 
+      return action.payload ? action.payload : [] ; 
     default:
-      return state;
+      return groceries;
   }
 }
