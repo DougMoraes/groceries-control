@@ -20,6 +20,10 @@ class List extends React.Component {
     return this.props.groceries.filter(registry => registry.category === category);
   }
 
+  getRegistriesPerProduct(product) {
+    return this.props.groceries.filter(registry => registry.product === product);
+  }
+
   sumUpReducer(initialValue, registry){
     initialValue.qtd += parseFloat(registry.quantity)
     initialValue.price += parseFloat(registry.price)
@@ -33,8 +37,7 @@ class List extends React.Component {
     return price / calculatedQtd;
   }
 
-  getAveragePrice(category){
-    let registries = this.getRegistriesPerCategory(category);
+  getAveragePrice(registries){
     let unitMeasurement = registries[0].unitMeasurement
     let initialValue = { qtd: 0, price: 0 };
     let valuesSumUp = registries.reduce(this.sumUpReducer, initialValue);
@@ -54,22 +57,46 @@ class List extends React.Component {
     }
   }
 
-  renderCategoryCards(){
-    return this.props.categories.map(category => {
+  getListUniqueProducts(list){
+    return [...new Set(list.map(item => item.product))]
+  }
 
-      return <Card 
-      key={`card-${category}`} 
-      onClick={this.onClickHandler} 
-      header={category} 
-      description={this.getAveragePrice(category)}
-      />
-    })
+  renderCard(category, list){
+    return <Card 
+    key={`card-${category}`} 
+    onClick={this.onClickHandler} 
+    header={category} 
+    description={this.getAveragePrice(list)}
+    />
   }
 
   render(){
     return (
-      <div>
-        {this.renderCategoryCards()}
+      <div style={{
+        display: "flex",
+      }}>
+        <div style={{
+          display: "flex",
+          flexDirection: "column",
+          padding: "10px"
+        }}>
+          {this.props.categories.map(category => this.renderCard(category, this.getRegistriesPerCategory(category)))}
+        </div>
+        {
+          this.props.selectedCategory ? 
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              padding: "10px"
+            }}>
+              {
+                this.getListUniqueProducts(this.getRegistriesPerCategory(this.props.selectedCategory)).map(
+                  product => this.renderCard(product, this.getRegistriesPerProduct(product))
+                )
+              }
+            </div>
+            : null
+        }
       </div>
     )
   }
@@ -79,7 +106,7 @@ const mapStateToProps = state => {
   return {
     groceries: state.groceries,
     categories: [...new Set(state.groceries.map(item => item.category))],
-    selectedCategory: state.selectCategory
+    selectedCategory: state.selectedCategory
   };
 }
 
