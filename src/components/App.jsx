@@ -1,10 +1,15 @@
 import React from 'react';
-import List from './List'
+import AddRegistryButton from './AddRegistryButton';
+import List from './List';
 
 const App = () => {
   return (
-    <div>
+    <div style={{display: "flex"}}>
       <List />
+      <AddRegistryButton circular icon='plus' style={{
+        margin: "10px",
+        alignSelf: "flex-start"
+      }} />
     </div>
   )
 }
