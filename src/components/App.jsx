@@ -6,7 +6,7 @@ const App = () => {
   return (
     <div style={{display: "flex"}}>
       <List />
-      <AddRegistryButton circular icon='plus' style={{
+      <AddRegistryButton style={{
         margin: "10px",
         alignSelf: "flex-start"
       }} />
