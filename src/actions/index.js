@@ -1,7 +1,8 @@
 import groceriesAPI from '../api-config'
 import {
   GET_GROCERIES_HISTORY,
-  SELECT_CATEGORY
+  SELECT_CATEGORY,
+  ADD_GROCERIES_REGISTRY
 } from './types';
 
 export const getGroceriesHistory = () => async dispatch => {
@@ -12,4 +13,10 @@ export const getGroceriesHistory = () => async dispatch => {
 
 export const selectCategory = (category) => {
   return { type: SELECT_CATEGORY, payload: category };
+}
+
+export const addGroceriesRegistry = formValues => async (dispatch) => {
+  const response = await groceriesAPI.post('/streams', { ...formValues });
+
+  dispatch({ type: ADD_GROCERIES_REGISTRY, payload: response.data });
 }
