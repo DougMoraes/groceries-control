@@ -16,7 +16,7 @@ export const selectCategory = (category) => {
 }
 
 export const addGroceriesRegistry = formValues => async (dispatch) => {
-  const response = await groceriesAPI.post('/streams', { ...formValues });
+  const response = await groceriesAPI.post('/groceries', { ...formValues });
 
   dispatch({ type: ADD_GROCERIES_REGISTRY, payload: response.data });
 }
