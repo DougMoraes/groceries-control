@@ -8,7 +8,7 @@ export default (groceries = [], action) => {
     case GET_GROCERIES_HISTORY:
       return action.payload ? action.payload : [] ;
     case ADD_GROCERIES_REGISTRY:
-      return action.payload ; 
+      return [...groceries, action.payload] ; 
     default:
       return groceries;
   }
