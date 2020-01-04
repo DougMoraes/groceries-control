@@ -58,7 +58,7 @@ class List extends React.Component {
   }
 
   getListUniqueProducts(list){
-    return [...new Set(list.map(item => item.product))]
+    return [...new Set(list.map(item => item.product))].sort((a, b) => a.localeCompare(b))
   }
 
   renderCard(category, list){
@@ -105,7 +105,7 @@ class List extends React.Component {
 const mapStateToProps = state => {
   return {
     groceries: state.groceries,
-    categories: [...new Set(state.groceries.map(item => item.category))],
+    categories: [...new Set(state.groceries.map(item => item.category))].sort((a, b) => a.localeCompare(b)),
     selectedCategory: state.selectedCategory
   };
 }
